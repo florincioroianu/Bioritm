@@ -42,7 +42,7 @@ public class gameManager : MonoBehaviour
 
     private void Start()
     {
-        if (ok||ok1)
+        if (ok || ok1)
         {
             Remind();
         }
@@ -66,7 +66,7 @@ public class gameManager : MonoBehaviour
             psihologiaCulorilorCanvas.SetActive(false);
             if (isFirstTime)
             {
-                color = new Color(UnityEngine.Random.Range(0f,1f), UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f));
+                color = new Color(UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f));
                 isFirstTime = false;
             }
         }
@@ -90,13 +90,12 @@ public class gameManager : MonoBehaviour
         concluzieCanvas.SetActive(false);
         gamesCanvas.SetActive(true);
         psihologiaCulorilorCanvas.SetActive(false);
-        //RGBtext.changeTextColor(color2.r * 255f, color2.g * 255f, color2.b * 255f);
-        //img.GetComponent<Image>().color = color2;
+        
+
         color = color2;
         ok = false;
         ok1 = false;
-        //SceneManager.UnloadScene("Game");
-        //SceneManager.UnloadScene("Snake");
+
     }
     
     void getValues()
@@ -188,7 +187,6 @@ public class gameManager : MonoBehaviour
         menuCanvas.SetActive(false);
         gamesCanvas.SetActive(true);
         rezultatCanvas.SetActive(false);
-        //Start(color);
     }
 
     public void Menu()

@@ -18,16 +18,19 @@ public class player : MonoBehaviour
     public int score = 0;
     public GameObject GameOverMenuUI;
     public GameObject GameOnUI;
+    public GameObject Player;
     public static bool GameIsOver = false;
 
     private void Start()
     {
+        Player.transform.position=new Vector3(0f, .8f, 0f);
         Time.timeScale = 1f;
+        GameIsOver = false;
         GameOverMenuUI.SetActive(false);
         GameOnUI.SetActive(true);
         newRecordText.SetActive(false);
         recordText.color = Color.white;
- 
+        
     }
 
     void Update()
@@ -91,25 +94,19 @@ public class player : MonoBehaviour
      public void Replay()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        Time.timeScale = 1f;
-        GameOverMenuUI.SetActive(false);
-        GameOnUI.SetActive(true);
-        GameIsOver = false;
     }
 
     public void Menu()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
-        GameIsOver = false;
         Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 
-    [System.Obsolete]
     public void Back()
     {
         gameManager.ok1 = true;
-        _ = SceneManager.UnloadScene(1);
-        SceneManager.LoadScene(0);
-        
+        GameOverMenuUI.SetActive(false);
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("SampleScene");
     }
 }
