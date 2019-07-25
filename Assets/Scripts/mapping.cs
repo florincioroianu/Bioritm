@@ -49,13 +49,6 @@ public class mapping : MonoBehaviour
 
     void Start()
     {
-        //color1 = new Color(UnityEngine.Random.Range(0, 255) / 255f, UnityEngine.Random.Range(0, 255) / 255f, UnityEngine.Random.Range(0, 255) / 255f);
-        //color2 = new Color(UnityEngine.Random.Range(0, 255) / 255f, UnityEngine.Random.Range(0, 255) / 255f, UnityEngine.Random.Range(0, 255) / 255f);
-        //color1 = Color.black;
-        //color2 = Color.yellow;
-        //color2 = color1;
-        //color2.g -= .2f;
-        //color2.b -= .3f;
         playerColor = gameManager.color;
         gameCanvas.SetActive(true);
         scoreText.text = score.ToString();
@@ -113,8 +106,7 @@ public class mapping : MonoBehaviour
             rand = UnityEngine.Random.Range(0, availableNodes.Count);
             n = availableNodes[rand];
         }
-        PlacePlayerObj(heartObj, n.worldPosition);
-        //heartObj.transform.position = n.worldPosition;
+        heartObj.transform.position = n.worldPosition;
         heartNode = n;
     }
 
@@ -176,7 +168,6 @@ public class mapping : MonoBehaviour
             if (IsTailNode(targetNode))
             {
                 //game over
-                //SceneManager.LoadScene("Snake");
                 Time.timeScale = 0f;
                 gameCanvas.SetActive(false);
                 gameOverCanvas.SetActive(true);
@@ -202,8 +193,7 @@ public class mapping : MonoBehaviour
                     availableNodes.Remove(previousNode);
                 }
                 MoveTail();
-                PlacePlayerObj(playerObj, targetNode.worldPosition);
-                //playerObj.transform.position = targetNode.worldPosition;
+                playerObj.transform.position = targetNode.worldPosition;
                 playerNode = targetNode;
                 availableNodes.Remove(playerNode);
                 if (isScore)
@@ -231,6 +221,12 @@ public class mapping : MonoBehaviour
                 }
             }
         }
+    }
+
+    void PlacePlayerObj(GameObject obj, Vector3 pos)
+    {
+        pos += Vector3.one*.1f;
+        obj.transform.position = pos;
     }
 
     void SetDirection(Direction d)
@@ -300,10 +296,10 @@ public class mapping : MonoBehaviour
         playerRenderer.sortingOrder = 1;
         playerNode = GetNode(6, 2);
 
-        playerObj.transform.localScale = Vector3.one;
+        playerObj.transform.localScale = Vector3.one * 1.1f;
         playerObj.transform.position = playerNode.worldPosition;
 
-        //  PlacePlayerObj(playerObj, playerNode.worldPosition);
+        PlacePlayerObj(playerObj, playerNode.worldPosition);
         tailParent = new GameObject("tailParent");
     }
 
@@ -326,7 +322,6 @@ public class mapping : MonoBehaviour
                 previousNode = prev;
             }
             availableNodes.Remove(p.node);
-            playerObj.transform.position = p.node.worldPosition;
             PlacePlayerObj(p.obj, p.node.worldPosition);
 
         }
@@ -381,12 +376,6 @@ public class mapping : MonoBehaviour
         return grid[x, y];
     }
 
-    void PlacePlayerObj(GameObject obj, Vector3 pos)
-    {
-        pos += Vector3.zero;
-        obj.transform.position = pos;
-    }
-
     SpecialNodes CreateTailNode(int x, int y)
     {
         SpecialNodes s = new SpecialNodes();
@@ -394,10 +383,9 @@ public class mapping : MonoBehaviour
         s.obj = new GameObject();
 
 
-        //s.obj.transform.position = s.node.worldPosition;
+        s.obj.transform.position = s.node.worldPosition;
         s.obj.transform.parent = tailParent.transform;
-        s.obj.transform.localScale = Vector3.one;
-        PlacePlayerObj(s.obj, s.node.worldPosition);
+        s.obj.transform.localScale = Vector3.one * .75f;
         SpriteRenderer r = s.obj.AddComponent<SpriteRenderer>();
         r.sprite = playerSprite;
         r.sortingOrder = 1;
